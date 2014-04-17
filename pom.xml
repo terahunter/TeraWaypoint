@@ -36,6 +36,14 @@
             <type>jar</type>
             <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>lib.PatPeter</groupId>
+            <artifactId>SQLibrary</artifactId>
+            <version>7.1</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/SQLibrary-7.1.jar</systemPath>
+        </dependency>
     </dependencies>
 
 </project>
