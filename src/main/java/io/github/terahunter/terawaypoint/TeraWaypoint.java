@@ -21,6 +21,8 @@ public class TeraWaypoint extends JavaPlugin {
             getLogger().severe("Could not setup SQLite: " + e.getMessage());
             Bukkit.getPluginManager().disablePlugin(this);
         }
+
+        getCommand("waypoint").setExecutor(new WaypointExecutor());
     }
 
     @Override
@@ -28,12 +30,16 @@ public class TeraWaypoint extends JavaPlugin {
         db.close();
     }
 
+    SQLite db() {
+        return this.db;
+    }
+
 
     private static final String[][] tables = new String[][] {
             {"waypoints", "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     "name TEXT UNIQUE, " +
                     "dimension INTEGER, " +
-                    "x INTEGER, y INTEGER, z INTEGER"},
+                    "x DOUBLE, y DOUBLE, z DOUBLE"},
             {"teleporters", "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     "name TEXT UNIQUE, " +
                     "waypoint INTEGER, " +

@@ -1,3 +1,10 @@
 name: TeraWaypoint
 main: io.github.terahunter.terawaypoint.TeraWaypoint
 version: 0.1.0
+
+commands:
+  waypoint:
+    description: Set a waypoint
+    usage: /waypoint name
+    permission: TeraWaypoint.waypoint
+    permission-message: You are not allowed to do that!
