@@ -30,7 +30,14 @@ public class TeraWaypoint extends JavaPlugin {
 
 
     private static final String[][] tables = new String[][] {
-
+            {"waypoints", "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    "name TEXT UNIQUE, " +
+                    "dimension INTEGER, " +
+                    "x INTEGER, y INTEGER, z INTEGER"},
+            {"teleporters", "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    "name TEXT UNIQUE, " +
+                    "waypoint INTEGER, " +
+                    "FOREIGN KEY(waypoint) REFERENCES waypoints(id)"}
     };
 
     private void setupDatabase() throws SQLException {
