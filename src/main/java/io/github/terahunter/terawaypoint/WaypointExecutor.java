@@ -21,7 +21,7 @@ public class WaypointExecutor implements CommandExecutor {
             Player player = (Player)sender;
 
             try {
-                ResultSet result = plugin.db().query("SELECT * FROM waypoints WHERE name=" + args[0] + ";");
+                ResultSet result = plugin.db().query("SELECT * FROM waypoints WHERE name='" + args[0] + "';");
                 if (result.getFetchSize() > 0) {
                     result.close();
                     sender.sendMessage("That name already exists!");
@@ -30,12 +30,10 @@ public class WaypointExecutor implements CommandExecutor {
                 result.close();
 
                 Location position = player.getLocation();
-                plugin.db().query("INSERT INTO waypoints (" +
-                        "name=" + args[0] + ", " +
-                        "x=" + position.getX() + ", " +
-                        "y=" + position.getY() + ", " +
-                        "z=" + position.getZ() +
-                        ");");
+                plugin.db().query(String.format(
+                        "INSERT INTO waypoints (name,x,y,z) VALUES ('%s',%f,%f,%f);",
+                        args[0], position.getX(), position.getY(), position.getZ()
+                ));
             } catch (SQLException e) {
                 plugin.getLogger().warning("SQLException: " + e.getMessage());
             }
