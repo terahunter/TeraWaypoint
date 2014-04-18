@@ -18,6 +18,7 @@ public class TeraWaypoint extends JavaPlugin {
         try {
             setupDatabase();
         } catch (SQLException e) {
+            // SQLite connection is required
             getLogger().severe("Could not setup SQLite: " + e.getMessage());
             Bukkit.getPluginManager().disablePlugin(this);
         }
@@ -35,6 +36,7 @@ public class TeraWaypoint extends JavaPlugin {
     }
 
 
+    // Database schema
     private static final String[][] tables = new String[][] {
             {"waypoints", "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     "name TEXT UNIQUE, " +
@@ -46,6 +48,9 @@ public class TeraWaypoint extends JavaPlugin {
                     "FOREIGN KEY(waypoint) REFERENCES waypoints(id)"}
     };
 
+    /**
+     * Open database and ensure the specified tables exist
+     */
     private void setupDatabase() throws SQLException {
         db = new SQLite(Logger.getLogger("Minecraft"), "[TeraWaypoint:SQLite]",
                 this.getDataFolder().getAbsolutePath(), "TeraWaypoint");
@@ -56,6 +61,9 @@ public class TeraWaypoint extends JavaPlugin {
         }
     }
 
+    /**
+     * Check if the specified table exists. If not, create it.
+     */
     private void setupTable(String table, String columns) throws SQLException {
         if (!db.isTable(table)) {
             db.query("CREATE TABLE " + table + " (" + columns + ");");
